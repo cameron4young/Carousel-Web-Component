@@ -1,0 +1,26 @@
+*{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#html{
+    color:gray;
+}
+
+#css{
+    color:darkcyan;
+}
+
+#header{
+    font-size: 5vw;
+}
+
+#highlight{
+    background-color: rgb(17, 30, 202)
+}
+
+#code, pre{
+    width: 70%;
+    font-family: Arial, Helvetica, sans-serif;
+    color:white;
+    background-color:black;
+}

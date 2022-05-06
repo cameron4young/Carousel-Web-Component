@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="src/carousel.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Demo 4</title>
+</head>
+<body>
+    <div id="header">
+        <h1>Custom Carousel</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a id='button' href='index.html'>Home</a></li>
+            <li><a id="button" href="demo1.html">Demo 1</a></li>
+            <li><a id="button" href="demo2.html">Demo 2</a></li>
+            <li><a id="button" href="demo3.html">Demo 3</a></li>
+            <li><a id="button" href="demo4.html">Demo 4</a></li>
+            <li><a id="button" href="demo5.html">Demo 5</a></li>
+        </ul>
+    </nav>
+    <section>
+        <h2>Demo #4: Modifying Scroll Amount</h2>
+        <custom-carousel id="num1" scroll=500>
+            <img src="http://elrincondelgeek.files.wordpress.com/2011/04/google-chrome-logo-400x400.jpg">
+            <img src="https://www.smkyadikakalijati.sch.id/upload/imagecache/61667414whatsapp-logo-CAD5F80B25-seeklogo.com-400x400.png">
+            <img src="https://kongres-magazine.eu/wp-content/uploads/2017/07/Instagram-logo-400x400.png">
+            <img src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png">
+        </custom-carousel>
+        
+        <div id="code">
+            <h3 id="html">HTML</h3>
+            <pre>&lt;custom-carousel scroll=500&gt;</pre>
+            <pre>   &lt;img src="https://www.cushaway.com/wp-content/uploads/2018/02/Can-Your-Dog-Benefit-from-a-Grain-Free-Diet-825x510.jpg"&gt;</pre>
+            <pre>   &lt;img src="https://urbanmatter.com/chicago/wp-content/uploads/2019/03/53865742_124709948667133_3375495593978437639_n.jpg"&gt;</pre>
+            <pre>   &lt;img src="https://www.homefreeanimalrescue.com/uploads/9/4/6/1/94611086/published/maddie-pup-xmas.jpeg?1640668091"&gt;</pre>
+            <pre>   &lt;img src="https://urbanmatter.com/chicago/wp-content/uploads/2019/03/53865742_124709948667133_3375495593978437639_n.jpg"&gt;</pre>
+            &lt;/custom-carousel&gt;
+            <h3 id="css">CSS</h3>
+            <pre>#num1{</pre>
+                <pre>   display:block;</pre>
+                <pre>   --container-size: 44vw;</pre>
+                <pre>  --button-size: 2vw;</pre>
+            }
+            <h3 id="js">JS (included in carousel.js file)</h3>
+            <pre>#scroll&nbsp;=&nbsp;screen.width&nbsp;*&nbsp;2;</pre>#scroll&nbsp;=&nbsp;screen.width&nbsp;*&nbsp;2;
+
+	        <pre>get&nbsp;scroll()&nbsp;{</pre>
+                <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.#scroll;</pre>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;}</pre>
+                <pre>set&nbsp;scroll(v)&nbsp;{</pre>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.#scroll&nbsp;=&nbsp;v;&nbsp;this.setAttribute(&quot;scroll&quot;,&nbsp;v);</pre>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;}</pre>
+
+            <pre>static&nbsp;get&nbsp;observedAttributes()&nbsp;{</pre>
+                <pre>&nbsp;return&nbsp;[&quot;scroll&quot;]&nbsp;</pre>
+            <pre>}</pre>
+                <pre>attributeChangedCallback(name,&nbsp;oldValue,&nbsp;newValue)&nbsp;{</pre>
+                    <pre>   if&nbsp;(name&nbsp;===&nbsp;&quot;scroll&quot;)&nbsp;this.#scroll&nbsp;=&nbsp;newValue;</pre>
+                }
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;connectedCallback(){</pre>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next.addEventListener(&quot;click&quot;,&nbsp;evt=&gt;{</pre>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.scrollLeft&nbsp;+=&nbsp;this.#scroll;</pre>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})</pre>
+
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev.addEventListener(&quot;click&quot;,&nbsp;evt=&gt;{</pre>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.scrollLeft&nbsp;&#45;=&nbsp;this.#scroll;</pre>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})</pre>
+            <pre>&nbsp;&nbsp;&nbsp;&nbsp;}</pre>
+            <pre>&nbsp;&nbsp;}</pre>
+        </div>
+    </section>
+</body>
+</html>

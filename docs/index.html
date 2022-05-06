@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Documentation</title>
+</head>
+<body>
+    <h1 id="header">Custom Carousel Documentation</h1>
+    <h1>JavaScript code</h1>
+        <pre><code>
+    var container;
+    var prev;
+    var next;
+    class Carousel extends HTMLElement {
+        constructor() {
+            super();
+
+            this.attachShadow({mode: 'open'});
+            this.shadowRoot.innerHTML=`
+            &#x3C;style&#x3E;
+                @import url(&#x22;./css/carousel-css.css&#x22;)
+            &#x3C;/style&#x3E;
+            &#x3C;div id=&#x22;outer-container&#x22;&#x3E;
+                &#x3C;button id=&#x22;prev&#x22;&#x3E;&#x3C;&#x3C;/button&#x3E;
+                &#x3C;div id=image-container&#x3E;
+                    &#x3C;slot&#x3E;&#x3C;/slot&#x3E;
+                &#x3C;/div&#x3E;
+                &#x3C;button id=&#x22;next&#x22;&#x3E;&#x3E;&#x3C;/button&#x3E;
+            &#x3C;/div&#x3E;
+            `
+            container = this.shadowRoot.getElementById('image-container');
+            prev = this.shadowRoot.getElementById('prev');
+            next = this.shadowRoot.getElementById('next');
+        }
+        #scroll = screen.width * 2;
+
+        get scroll() {
+            return this.#scroll;
+        }
+        set scroll(v) {
+            this.#scroll = v; this.setAttribute("scroll", v);
+        }
+
+        static get observedAttributes() { return ["scroll"] }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            if (name === "scroll") this.#scroll = newValue;
+        }
+        connectedCallback(){
+            next.addEventListener("click", evt=>{
+                container.scrollLeft += this.#scroll;
+            });
+
+            prev.addEventListener("click", evt=>{
+                container.scrollLeft -= this.#scroll;
+            });
+        }
+    }
+    
+    customElements.define('custom-carousel', Carousel);
+    </code></pre>
+    <h1 id="css">CSS code</h1>
+    <pre><code>
+        :host {
+            display: block;
+            width:100vw;
+            --container-size: 40vw;
+            --button-color: black;
+            --button-size: 10vw;
+          }
+        
+        #outer-container{
+            display:flex;
+        }
+        
+        #image-container{
+            width:var(--container-size);
+            display: flex;
+            object-fit: contain;
+            overflow: scroll;
+        }
+        
+        button{
+            border: 2px solid black;
+            background-color:var(--button-color);
+            color:white;
+            width: var(--button-size);
+            font-size: var(--button-size);
+            opacity: 85%;
+        }
+        
+        button:hover{
+            box-shadow: 1px 1px 50px 0px rgba(16, 0, 0, 0.9);
+            border: 4px solid white
+        }
+        
+    </code></pre>
+    <h1>HTML Attributes</h1>
+    <h2>Scroll</h2>
+    <p>
+        With the 'scroll=' HTML Attribute, developers are able to modify how much the carousel buttons scroll on each press, in pixels. Below is an example
+        on how the attribute is used. In this example, the scroll quantity is 500px. It is important to make note that the value assigned into this 
+        attribute should be a number (with no quotation marks or units).
+    </p>
+    <div id="code">
+        <h3 id="html">HTML</h3>
+        <pre>&lt;custom-carousel <span id="highlight">scroll = 500</span>&gt;</pre>
+        <pre>   &lt;img src="https://www.cushaway.com/wp-content/uploads/2018/02/Can-Your-Dog-Benefit-from-a-Grain-Free-Diet-825x510.jpg"&gt;</pre>
+        <pre>   &lt;img src="https://urbanmatter.com/chicago/wp-content/uploads/2019/03/53865742_124709948667133_3375495593978437639_n.jpg"&gt;</pre>
+        <pre>   &lt;img src="https://www.homefreeanimalrescue.com/uploads/9/4/6/1/94611086/published/maddie-pup-xmas.jpeg?1640668091"&gt;</pre>
+        <pre>   &lt;img src="https://urbanmatter.com/chicago/wp-content/uploads/2019/03/53865742_124709948667133_3375495593978437639_n.jpg"&gt;</pre>
+        &lt;/custom-carousel&gt;
+    </div>
+    <h1>CSS Properties</h1>
+    <h2>--container-size</h2>
+    <p>
+        Using the <b>--container-size</b> CSS property, developers are able to set a custom container size in order to better fit their carousel items. To provide 
+        more clarity, when using this property, developers are modifying the size of the inner container that holds the images, rather than the carousel as
+         a whole. Below is an example on how the property is used. In this example, the --container-size property is set to 95vw.
+    </p>
+    <div id="code">
+        <h3 id="css">CSS</h3>
+        <pre>custom-carousel{</pre>
+        <pre><span id="highlight">   --container-size: 95vw;</span></pre>
+    }
+    </div>
+    <h2>--button-size</h2>
+    <p>
+        Similar to the --container-size property, with the <b>--button-size</b> property developers are able to modify the size of the carousel buttons.
+        Below is an example on how the property is used. In this example, the --button-size property is set to 20vw.
+    </p>
+    <div id="code">
+        <h3 id="css">CSS</h3>
+        <pre>custom-carousel{</pre>
+        <pre><span id="highlight">  --button-size: 20vw;</span></pre>
+    }
+    </div>
+    <h2>--button-color</h2>
+    <p>
+        The --button-color attribute is used to change the color of the carousel buttons. In the example below, the --button-color property is set
+         to green.
+    </p>
+    <div id="code">
+        <h3 id="css">CSS</h3>
+        <pre>custom-carousel{</pre>
+        <pre><span id="highlight"> --button-color: green;</span></pre>
+    }
+    </div>  
+    <h1>JS Methods and Accessors</h1>
+    <h2>Scroll Methods</h2>
+    <p>
+        In the JavaScript code, there are several methods used in order to support the Scroll HTML Attribute, all of which can be observed below.
+        The first two methods are getter and setter methods for the scroll value. If no value is passed in for scroll's value, scroll is equal to 
+        screen.width * 2 by default. The next two methods keep the scroll value updated, which helps make the scroll attribute-property reflective.
+        Lastly the connectedCallback method includes two event listeners which allow for scrolling of the carousels using the side carousel buttons.
+    </p>
+    <pre><code>
+    #scroll = screen.width * 2;
+
+	get scroll() {
+        return this.#scroll;
+    }
+	set scroll(v) {
+         this.#scroll = v; this.setAttribute("scroll", v);
+    }
+
+	static get observedAttributes() { return ["scroll"] }
+
+	attributeChangedCallback(name, oldValue, newValue) {
+		if (name === "scroll") this.#scroll = newValue;
+	}
+    connectedCallback(){
+        next.addEventListener("click", evt=>{
+            container.scrollLeft += this.#scroll;
+        })
+
+        prev.addEventListener("click", evt=>{
+            container.scrollLeft -= this.#scroll;
+        })
+    }
+    </code></pre>
+</body>
+</html>
